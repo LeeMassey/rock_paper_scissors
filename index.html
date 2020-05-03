@@ -5,7 +5,7 @@
 
 	<meta charset="UTF-8">
 
-	<title>Functions!!</title>
+	<title>Rock Paper Scissors!</title>
 
 </head>
 
@@ -14,17 +14,13 @@
 		<script>
 
 			function computerChoice() {
-
 				let choice = ["rock","paper","scissors"];
 				return choice[Math.floor(Math.random()*3)];
-
 			}
 
 			function playerChoice() {
-
 				let choice = prompt("Rock, Paper, or Scissors?");
 				choice = choice.toLowerCase();
-
 				if (choice != "rock" && choice != "paper" && choice != "scissors") {
 					alert("Not a valid option! Try again.");
 					return playerChoice();
@@ -32,21 +28,16 @@
 				else {
 					return choice;
 				}
-
 			}
 
 			function playRound() {
-
-				let playerSelection = playerChoice();
-				let computerSelection = computerChoice();
-				console.log("Computer picked " + computerSelection + "!");
-				console.log("Player picked " + playerSelection + "!");
-				let p1 = playerSelection, p2 = computerSelection;
+				let p1 = playerChoice(), p2 = computerChoice();
 				let r = "rock", p = "paper", s = "scissors";
 				let result;
-
+				console.log("Computer picked " + p2 + "!");
+				console.log("Player picked " + p1 + "!");
 				if (p1 == p2) {
-					result = "It's a tie! Try again!";
+					console.log("It's a tie! Try again!");
 					return playRound();
 				}
 				else if ((p1 == r && p2 == s) || (p1 == p && p2 == r) || (p1 == s && p2 == p)) {
@@ -56,15 +47,15 @@
 					result = "You lose! " + p2.charAt(0).toUpperCase() + p2.slice(1) + " beats " + p1 + "!";
 				}
 				return result;
-
 			}
 
 			function game() {
-
+				let round = 1;
 				for (i=0;i<5;i++) {
+					console.log("ROUND " + round + ": ");
 					console.log(playRound());
+					round += 1;
 				}
-
 			}
 
 			game();
