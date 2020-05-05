@@ -1,4 +1,4 @@
-<!doctype HTML>
+<!doctype html>
 <html>
 
 <head>
@@ -10,55 +10,54 @@
 </head>
 
 	<body>
+
+		<div id="container">
+
+			<button id="rock">Rock</button>
+			<button id="paper">Paper</button>
+			<button id="scissors">Scissors</button>
+
+			<p id="results"></p>
+			<p id="score"></p>
+
+		</div>
 		
 		<script>
+
+			let playerScore = 0, computerScore = 0, ties = 0;	
+
+			const buttons = document.querySelectorAll("button");
+
+			buttons.forEach((button) => {
+				button.addEventListener("click", playRound);
+			});
 
 			function computerChoice() {
 				let choice = ["rock","paper","scissors"];
 				return choice[Math.floor(Math.random()*3)];
 			}
 
-			function playerChoice() {
-				let choice = prompt("Rock, Paper, or Scissors?");
-				choice = choice.toLowerCase();
-				if (choice != "rock" && choice != "paper" && choice != "scissors") {
-					alert("Not a valid option! Try again.");
-					return playerChoice();
-				}
-				else {
-					return choice;
-				}
-			}
-
 			function playRound() {
-				let p1 = playerChoice(), p2 = computerChoice();
-				let r = "rock", p = "paper", s = "scissors";
-				let result;
-				console.log("Computer picked " + p2 + "!");
-				console.log("Player picked " + p1 + "!");
-				if (p1 == p2) {
-					console.log("It's a tie! Try again!");
-					return playRound();
-				}
-				else if ((p1 == r && p2 == s) || (p1 == p && p2 == r) || (p1 == s && p2 == p)) {
-					result = "You win! " + p1.charAt(0).toUpperCase() + p1.slice(1) + " beats " + p2 + "!";
-				}
-				else {
-					result = "You lose! " + p2.charAt(0).toUpperCase() + p2.slice(1) + " beats " + p1 + "!";
-				}
-				return result;
-			}
-
-			function game() {
-				let round = 1;
-				for (i=0;i<5;i++) {
-					console.log("ROUND " + round + ": ");
-					console.log(playRound());
-					round += 1;
+				if (playerScore < 5 && computerScore < 5) {
+					let p1 = this.id, p2 = computerChoice();
+					let r = "rock", p = "paper", s = "scissors";
+					let result;
+					if (p1 == p2) {
+						result = "It's a tie! Try again!!!";
+						ties += 1;
+					}
+					else if ((p1 == r && p2 == s) || (p1 == p && p2 == r) || (p1 == s && p2 == p)) {
+						result = "You win! " + p1.charAt(0).toUpperCase() + p1.slice(1) + " beats " + p2 + "!";
+						playerScore += 1;
+					}
+					else {
+						result = "You lose! " + p2.charAt(0).toUpperCase() + p2.slice(1) + " beats " + p1 + "!";
+						computerScore += 1;
+					}
+					document.querySelector("#results").textContent = "Computer picked " + p2 + ". You picked " + p1 + ". " + result;
+					document.querySelector("#score").textContent = "Player Score: " + playerScore + " | Computer Score: " + computerScore + " | Ties: " + ties;
 				}
 			}
-
-			game();
 
 		</script>
 
