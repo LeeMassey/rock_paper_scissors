@@ -5,6 +5,43 @@
 
 	<meta charset="UTF-8">
 
+	<style type="text/css">
+
+		body {
+			background: #212F3C;
+			color: #cccccc;
+		}
+
+		#container {
+			width: 100%;
+			margin: 0 auto;
+			text-align:center;
+		}
+
+		#buttons, #results, #displayWinner {
+			margin-top: 30px;
+		}
+
+		#displayWinner {
+			font-size: 2em;
+		}
+
+		h1 {
+			font-size: 2em;
+		}
+
+		button {
+			background: #2980B9;
+			border: 2px solid #17202A;
+			border-radius: 5%;
+			padding: 30px;
+			font-size:1.5em;
+			text-align: center;
+			text-decoration: none;
+		}
+
+	</style>
+
 	<title>Rock Paper Scissors!</title>
 
 </head>
@@ -13,18 +50,27 @@
 
 		<div id="container">
 
-			<button id="rock">Rock</button>
-			<button id="paper">Paper</button>
-			<button id="scissors">Scissors</button>
+			<div id="header"><h1>Make a selection. First to reach 5 points wins.</h1></div>
+			<div id="score">Player Score: 0 | Computer Score: 0 | Ties: 0</div>
 
-			<p id="results"></p>
-			<p id="score"></p>
+			<div id="buttons">
+
+				<button id="rock">Rock</button>
+				<button id="paper">Paper</button>
+				<button id="scissors">Scissors</button>
+
+			</div>
+
+			<div id="results"></div>
+			<div id="displayWinner"></div>
 
 		</div>
 		
 		<script>
 
-			let playerScore = 0, computerScore = 0, ties = 0;	
+			let p1, p2;
+			let playerScore = 0, computerScore = 0, ties = 0;
+			let result;
 
 			const buttons = document.querySelectorAll("button");
 
@@ -39,23 +85,32 @@
 
 			function playRound() {
 				if (playerScore < 5 && computerScore < 5) {
-					let p1 = this.id, p2 = computerChoice();
+					p1 = this.id;
+					p2 = computerChoice();
 					let r = "rock", p = "paper", s = "scissors";
-					let result;
+					let displayWinner = document.querySelector("#displayWinner");
 					if (p1 == p2) {
 						result = "It's a tie! Try again!!!";
 						ties += 1;
 					}
 					else if ((p1 == r && p2 == s) || (p1 == p && p2 == r) || (p1 == s && p2 == p)) {
-						result = "You win! " + p1.charAt(0).toUpperCase() + p1.slice(1) + " beats " + p2 + "!";
+						result = p1.charAt(0).toUpperCase() + p1.slice(1) + " beats " + p2 + "! You win this round!";
 						playerScore += 1;
 					}
 					else {
-						result = "You lose! " + p2.charAt(0).toUpperCase() + p2.slice(1) + " beats " + p1 + "!";
+						result = p2.charAt(0).toUpperCase() + p2.slice(1) + " beats " + p1 + "! You lose this round!";
 						computerScore += 1;
 					}
-					document.querySelector("#results").textContent = "Computer picked " + p2 + ". You picked " + p1 + ". " + result;
-					document.querySelector("#score").textContent = "Player Score: " + playerScore + " | Computer Score: " + computerScore + " | Ties: " + ties;
+				}
+
+				document.querySelector("#results").textContent = "Computer picked " + p2 + ". You picked " + p1 + ". " + result;
+				document.querySelector("#score").textContent = "Player Score: " + playerScore + " | Computer Score: " + computerScore + " | Ties: "+ ties;
+
+				if (playerScore == 5) {
+					displayWinner.textContent = "You are the winner!!!";
+				}
+				if (computerScore == 5) {
+					displayWinner.textContent = "You have lost to the computer!";
 				}
 			}
 
