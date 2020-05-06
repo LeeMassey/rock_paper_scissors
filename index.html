@@ -72,7 +72,7 @@
 			let p1, p2;
 			let playerScore = 0, computerScore = 0, ties = 0;
 			let result;
-
+			let displayWinner = document.querySelector("#displayWinner");
 			const buttons = document.querySelectorAll("button");
 
 			buttons.forEach((button) => {
@@ -89,7 +89,6 @@
 					p1 = this.id;
 					p2 = computerChoice();
 					let r = "rock", p = "paper", s = "scissors";
-					let displayWinner = document.querySelector("#displayWinner");
 					if (p1 == p2) {
 						result = "It's a tie! Try again!!!";
 						ties += 1;
